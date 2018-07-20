@@ -281,22 +281,12 @@
 
 		}
 		qtdeVolume = quantidade / todos.length;
+		console.log("qtde volume"+qtdeVolume);
 		etParcial = Math.ceil(qtdeVolume);
 		etFinal = quantidade - (etParcial * (todos.length-1));
-		fixTag(etParcial);
-		for(var i=0;i<todos.length;i++){
 
-			if(i != todos.length-1){
-				etiqueta = fixTag(etParcial,10);
-				nVolume = fixTag(todos[i],4);
-			}
-			else{
-				etiqueta = fixTag(etFinal,10);
-				nVolume = fixTag(todos[i],4);
-			}
-
-		}
 		makeCode(item,lote,etParcial,etFinal,todos);
+
 	}
 	function fixTag(valor,unit){
 		caracteres = valor.toString().length;
@@ -319,12 +309,19 @@
 				height : 100
 			}));
 		}
-
+		console.log(el.length);
 		for(var i=0;i<el.length;i++){
-			if(i != volumes[i]-1){
-				el[i].makeCode("01"+item+lote+parcial+volumes[i]);			
+			if(i != el.length -1){
+				qp = fixTag(parcial,10);
+				vp = fixTag(volumes[i],4);
+
+				el[i].makeCode("01"+item+"^"+lote+qp+vp);
+				console.log("01"+item+"^"+lote+qp+vp)		
 			}else{
-				el[i].makeCode("01"+item+lote+final+volumes[i]);
+				qf = fixTag(final,10);
+				vp = fixTag(volumes[i],4);
+				el[i].makeCode("01"+item+"^"+lote+qf+vp);
+				console.log("01"+item+"^"+lote+qf+vp);
 			}
 
 		}
